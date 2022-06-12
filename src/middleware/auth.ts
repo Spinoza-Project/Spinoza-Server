@@ -6,8 +6,7 @@ import message from "../modules/responseMessage";
 import util from "../modules/util";
 
 export default (req: Request, res: Response, next: NextFunction) => {
-    // request-header 에서 토큰 받아오기
-    const token = req.headers["authorization"]?.split(" ").reverse()[0];
+    const token = req.headers.cookie?.replace("token=", "");
 
     // 토큰 유뮤 검증
     if (!token) {
