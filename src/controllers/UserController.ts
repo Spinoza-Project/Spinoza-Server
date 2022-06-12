@@ -88,9 +88,13 @@ const signInUser = async (req: Request, res: Response) => {
             accessToken,
         };
 
-        res.status(statusCode.OK).send(
-            util.success(statusCode.OK, message.SIGNIN_USER_SUCCESS, data)
-        );
+        res.status(statusCode.OK)
+            .cookie("token", accessToken, {
+                maxAge: 1000 * 60 * 60 * 24 * 365,
+            })
+            .send(
+                util.success(statusCode.OK, message.SIGNIN_USER_SUCCESS, data)
+            );
     } catch (e) {
         console.log(e);
         res.status(statusCode.INTERNAL_SERVER_ERROR).send(
