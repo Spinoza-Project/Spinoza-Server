@@ -15,6 +15,8 @@ const message = {
     DELETE_USER_SUCCESS: "유저 삭제 성공",
     UPDATE_USER_SUCCESS: "유저 수정 성공",
     SIGNIN_USER_SUCCESS: "유저 로그인 성공",
+
+    READ_PLANT_SUCCESS: "식물 조회 성공",
 };
 
 export default message;
