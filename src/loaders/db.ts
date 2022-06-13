@@ -4,6 +4,8 @@ import Farm from "../models/Farm";
 import Farmer from "../models/Farmer";
 import Fruit from "../models/Fruit";
 import User from "../models/User";
+import Plant from "../models/Plant";
+import Feed from "../models/Feed";
 
 const connectDB = async () => {
     try {
@@ -27,6 +29,14 @@ const connectDB = async () => {
 
         Farm.createCollection().then(function (collection) {
             console.log("Farm Collection is created!");
+        });
+
+        Plant.createCollection().then(function (collection) {
+            console.log("Plant Collection is created!");
+        });
+
+        Feed.createCollection().then(function (collection) {
+            console.log("Feed Collection is created!");
         });
     } catch (err: any) {
         console.error(err.message);
