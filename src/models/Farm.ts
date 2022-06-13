@@ -2,6 +2,14 @@ import mongoose from "mongoose";
 import { FarmInfo } from "../interfaces/farm/FarmInfo";
 
 const FarmSchema = new mongoose.Schema({
+    fruit: {
+        type: String,
+        required: true,
+    },
+    farmName: {
+        type: String,
+        required: true,
+    },
     farmerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
