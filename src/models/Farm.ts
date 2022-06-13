@@ -31,15 +31,15 @@ const FarmSchema = new mongoose.Schema({
     },
     fruitTypes: [
         {
-            image: {
-                type: String,
-                required: true,
-            },
             name: {
                 type: String,
                 required: true,
             },
             information: {
+                type: String,
+                required: true,
+            },
+            color: {
                 type: String,
                 required: true,
             },
