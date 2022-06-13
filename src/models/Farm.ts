@@ -31,18 +31,9 @@ const FarmSchema = new mongoose.Schema({
     },
     fruitTypes: [
         {
-            name: {
-                type: String,
-                required: true,
-            },
-            information: {
-                type: String,
-                required: true,
-            },
-            color: {
-                type: String,
-                required: true,
-            },
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "Fruit",
         },
     ],
     introduction: {

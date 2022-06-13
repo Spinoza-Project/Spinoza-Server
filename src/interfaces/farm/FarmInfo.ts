@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { FruitInfo } from "../fruit/FruitInfo";
 
 export interface FarmInfo {
     fruit: string;
@@ -8,6 +7,6 @@ export interface FarmInfo {
     images: string[];
     address: string;
     phoneNumber: string;
-    fruitTypes: FruitInfo[];
+    fruitTypes: mongoose.Types.ObjectId[];
     introduction: string;
 }
