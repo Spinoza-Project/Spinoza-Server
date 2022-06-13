@@ -50,7 +50,7 @@ const getFeedsByPlantId = async (req: Request, res: Response) => {
                 .send(util.fail(statusCode.NOT_FOUND, message.NOT_FOUND));
 
         res.status(statusCode.OK).send(
-            util.success(statusCode.OK, message.READ_PLANT_SUCCESS, data)
+            util.success(statusCode.OK, message.READ_FEED_SUCCESS, data)
         );
     } catch (error) {
         console.log(error);
