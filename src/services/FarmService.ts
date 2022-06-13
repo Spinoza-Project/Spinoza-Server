@@ -1,4 +1,5 @@
 import { FarmResponseDto } from "../interfaces/farm/FarmResponseDto";
+import { FarmSpecificResponseDto } from "../interfaces/farm/FarmSpecificResponseDto";
 import Farm from "../models/Farm";
 
 const getFarmsByFruitAndAddress = async (
@@ -40,6 +41,37 @@ const getFarmsByFruitAndAddress = async (
     }
 };
 
+const getFarmByFarmId = async (
+    farmId: string
+): Promise<FarmSpecificResponseDto | null> => {
+    try {
+        const farm = await Farm.findById(farmId).populate(
+            "fruitTypes",
+            "name information color"
+        );
+
+        if (!farm) {
+            return null;
+        }
+
+        const data: FarmSpecificResponseDto = {
+            farmId: farm._id,
+            farmName: farm.farmName,
+            address: farm.address,
+            phoneNumber: farm.phoneNumber,
+            fruitTypes: farm.fruitTypes,
+            introduction: farm.introduction,
+            images: farm.images,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     getFarmsByFruitAndAddress,
+    getFarmByFarmId,
 };
