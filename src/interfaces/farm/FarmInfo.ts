@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import internal from "stream";
 
 export interface FarmInfo {
     fruit: string;
