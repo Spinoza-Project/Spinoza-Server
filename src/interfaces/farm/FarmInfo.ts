@@ -11,4 +11,6 @@ export interface FarmInfo {
     introduction: string;
     gridX: number;
     gridY: number;
+    weather: string;
+    temperature: number;
 }
