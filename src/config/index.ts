@@ -30,4 +30,9 @@ export default {
      * jwt Algorithm
      */
     jwtAlgo: process.env.JWT_ALGO as string,
+
+    /**
+     * Service Key
+     */
+    serviceKey: process.env.SERVICE_KEY as string,
 };
