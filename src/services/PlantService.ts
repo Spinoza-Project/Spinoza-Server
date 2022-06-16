@@ -1,5 +1,6 @@
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
 import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
+import Farm from "../models/Farm";
 import Feed from "../models/Feed";
 import Plant from "../models/Plant";
 
@@ -13,10 +14,14 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
 
         const tmp = await Promise.all(
             plants.map(async (plant: any) => {
+                const farm = await Farm.findById(plant.farmId);
+
                 const result = {
                     plantId: plant._id,
                     name: plant.name,
                     image: plant.image,
+                    weather: farm?.weather,
+                    temperature: farm?.temperature,
                 };
 
                 return result;
