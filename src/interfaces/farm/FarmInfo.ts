@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import internal from "stream";
 
 export interface FarmInfo {
     fruit: string;
@@ -9,4 +10,6 @@ export interface FarmInfo {
     phoneNumber: string;
     fruitTypes: mongoose.Types.ObjectId[];
     introduction: string;
+    gridX: number;
+    gridY: number;
 }

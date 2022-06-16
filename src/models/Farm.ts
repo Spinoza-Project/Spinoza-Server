@@ -40,6 +40,14 @@ const FarmSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    gridX: {
+        type: Number,
+        required: true,
+    },
+    gridY: {
+        type: Number,
+        required: true,
+    },
 });
 
 export default mongoose.model<FarmInfo & mongoose.Document>("Farm", FarmSchema);
