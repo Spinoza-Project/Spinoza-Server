@@ -6,5 +6,6 @@ const router: Router = Router();
 
 router.get("/", auth, FarmController.getFarmsByFruitAndAddress);
 router.get("/:farmId", auth, FarmController.getFarmByFarmId);
+router.get("/:farmId/reservation", auth, FarmController.getReservationByFarmId);
 
 export default router;
