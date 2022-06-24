@@ -85,7 +85,7 @@ const getReservationByFarmId = async (req: Request, res: Response) => {
                 .send(util.fail(statusCode.NOT_FOUND, message.NOT_FOUND));
 
         res.status(statusCode.OK).send(
-            util.success(statusCode.OK, message.READ_FARM_SUCCESS, data)
+            util.success(statusCode.OK, message.READ_RESERVATION_SUCCESS, data)
         );
     } catch (error) {
         console.log(error);

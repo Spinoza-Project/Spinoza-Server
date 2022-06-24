@@ -19,6 +19,8 @@ const message = {
     READ_PLANT_SUCCESS: "식물 조회 성공",
     READ_FEED_SUCCESS: "피드 조회 성공",
     READ_FARM_SUCCESS: "농장 조회 성공",
+
+    READ_RESERVATION_SUCCESS: "농장 예약 정보 조회 성공",
 };
 
 export default message;
