@@ -6,6 +6,7 @@ import Fruit from "../models/Fruit";
 import User from "../models/User";
 import Plant from "../models/Plant";
 import Feed from "../models/Feed";
+import Reservation from "../models/Reservation";
 
 const connectDB = async () => {
     try {
@@ -37,6 +38,10 @@ const connectDB = async () => {
 
         Feed.createCollection().then(function (collection) {
             console.log("Feed Collection is created!");
+        });
+
+        Reservation.createCollection().then(function (collection) {
+            console.log("Reservation Collection is created!");
         });
     } catch (err: any) {
         console.error(err.message);
