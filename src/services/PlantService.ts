@@ -1,9 +1,42 @@
+import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
+import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
 import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
 import Farm from "../models/Farm";
-import Farmer from "../models/Farmer";
 import Feed from "../models/Feed";
 import Plant from "../models/Plant";
+
+const createPlant = async (
+    userId: string,
+    plantCreateDto: PlantCreateDto
+): Promise<PostBaseResponseDto | null> => {
+    try {
+        const farmId = plantCreateDto.farmId;
+        const farm = await Farm.findById(farmId);
+        if (!farm) {
+            return null;
+        }
+
+        const plant = new Plant({
+            userId: userId,
+            farmId: farmId,
+            farmerId: farm?.farmerId,
+            name: "닉네임",
+            image: "imageUrl",
+        });
+
+        await plant.save();
+
+        const data = {
+            _id: plant.id,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 
 const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
     try {
@@ -91,5 +124,6 @@ const getFeedsByPlantId = async (
 
 export default {
     getPlants,
+    createPlant,
     getFeedsByPlantId,
 };

@@ -17,6 +17,8 @@ const message = {
     SIGNIN_USER_SUCCESS: "유저 로그인 성공",
 
     READ_PLANT_SUCCESS: "식물 조회 성공",
+    CREATE_PLANT_SUCCESS: "식물 생성 성공",
+
     READ_FEED_SUCCESS: "피드 조회 성공",
     READ_FARM_SUCCESS: "농장 조회 성공",
 
