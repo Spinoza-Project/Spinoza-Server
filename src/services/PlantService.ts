@@ -1,6 +1,7 @@
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
 import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
 import Farm from "../models/Farm";
+import Farmer from "../models/Farmer";
 import Feed from "../models/Feed";
 import Plant from "../models/Plant";
 
@@ -43,11 +44,18 @@ const getFeedsByPlantId = async (
     plantId: string
 ): Promise<FeedResponseDto | null> => {
     try {
+        const plant = await Plant.findById(plantId);
         const feeds = await Feed.find({ plantId: plantId }).sort({
             createdAt: -1, // 최신순 정렬
         });
 
-        if (!feeds) {
+        if (!plant || !feeds) {
+            return null;
+        }
+
+        const farm = await Farm.findById(plant?.farmId);
+
+        if (!farm) {
             return null;
         }
 
@@ -65,6 +73,11 @@ const getFeedsByPlantId = async (
         );
 
         const data = {
+            plantName: plant.name,
+            farmAdress: farm.address,
+            weather: farm.weather,
+            temperature: farm.temperature,
+            humidity: 10,
             feeds: tmp,
         };
 

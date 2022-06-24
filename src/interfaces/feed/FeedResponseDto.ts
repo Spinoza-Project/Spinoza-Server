@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 export interface FeedResponseDto {
+    plantName: string;
+    farmAdress: string;
+    weather: string;
+    temperature: number;
+    humidity: number;
     feeds: Data[];
 }
 
