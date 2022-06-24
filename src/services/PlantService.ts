@@ -74,6 +74,7 @@ const getFeedsByPlantId = async (
 
         const data = {
             plantName: plant.name,
+            farmName: farm.farmName,
             farmAdress: farm.address,
             weather: farm.weather,
             temperature: farm.temperature,
