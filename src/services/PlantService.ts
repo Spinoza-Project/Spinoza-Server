@@ -22,7 +22,7 @@ const createPlant = async (
             farmId: farmId,
             farmerId: farm?.farmerId,
             name: "닉네임",
-            image: "imageUrl",
+            image: "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/createdApple.jpeg",
         });
 
         await plant.save();
