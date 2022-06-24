@@ -7,7 +7,7 @@ const getWeather = async (
     nx: number,
     ny: number
 ) => {
-    const { data } = axios.get(
+    const { data } = await axios.get(
         "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst",
         {
             params: {
