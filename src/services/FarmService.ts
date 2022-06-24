@@ -47,7 +47,7 @@ const getFarmByFarmId = async (
     try {
         const farm = await Farm.findById(farmId).populate(
             "fruitTypes",
-            "name information color"
+            "name information image"
         );
 
         if (!farm) {
