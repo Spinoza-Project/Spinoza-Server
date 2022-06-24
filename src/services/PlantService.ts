@@ -77,7 +77,7 @@ const getFeedsByPlantId = async (
             farmAdress: farm.address,
             weather: farm.weather,
             temperature: farm.temperature,
-            humidity: 10,
+            humidity: farm.humidity,
             feeds: tmp,
         };
 

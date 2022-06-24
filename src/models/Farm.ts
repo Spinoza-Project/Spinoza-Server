@@ -56,6 +56,10 @@ const FarmSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    humidity: {
+        type: Number,
+        required: true,
+    },
 });
 
 export default mongoose.model<FarmInfo & mongoose.Document>("Farm", FarmSchema);

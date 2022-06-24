@@ -13,4 +13,5 @@ export interface FarmInfo {
     gridY: number;
     weather: string;
     temperature: number;
+    humidity: number;
 }
