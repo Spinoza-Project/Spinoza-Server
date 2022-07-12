@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import config from "../config";
 import Farm from "../models/Farm";
-import Farmer from "../models/Farmer";
 import Feed from "../models/Feed";
 import Fruit from "../models/Fruit";
 import Plant from "../models/Plant";
@@ -23,10 +22,6 @@ const connectDB = async () => {
 
         Fruit.createCollection().then(function (collection) {
             console.log("Fruit Collection is created!");
-        });
-
-        Farmer.createCollection().then(function (collection) {
-            console.log("Farmer Collection is created!");
         });
 
         Farm.createCollection().then(function (collection) {

@@ -2,7 +2,6 @@ import bcrypt from "bcryptjs";
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { UserCreateDto } from "../interfaces/user/UserCreateDto";
 import { UserSignInDto } from "../interfaces/user/UserSignInDto";
-import Farmer from "../models/Farmer";
 import User from "../models/User";
 
 const createUser = async (
@@ -21,6 +20,7 @@ const createUser = async (
         const user = new User({
             email: userCreateDto.email,
             password: userCreateDto.password,
+            type: userCreateDto.type,
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -68,10 +68,7 @@ const signInUser = async (
 const getUser = async (userId: string): Promise<string | number> => {
     try {
         const user = await User.findById(userId);
-        if (user) return "USER";
-
-        const farmer = await Farmer.findById(userId);
-        if (farmer) return "FARMER";
+        if (user) return user.type;
 
         return 401;
     } catch (error) {
