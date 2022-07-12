@@ -21,6 +21,10 @@ const createUser = async (
             email: userCreateDto.email,
             password: userCreateDto.password,
             type: userCreateDto.type,
+            profileImage:
+                userCreateDto.type == "USER"
+                    ? "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/user.png"
+                    : "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/farmer.png",
         });
 
         const salt = await bcrypt.genSalt(10);

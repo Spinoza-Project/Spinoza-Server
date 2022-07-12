@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    profileImage: {
+        type: String,
+        required: true,
+    },
 });
 
 export default mongoose.model<UserInfo & mongoose.Document>("User", UserSchema);
