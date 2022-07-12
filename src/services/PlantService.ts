@@ -82,9 +82,7 @@ const getFeedsByPlantId = async (
             .sort({
                 createdAt: -1, // 최신순 정렬
             })
-            .populate("comments.userId", "profileImage");
-
-        console.log(feeds);
+            .populate("comments.userId", "userName profileImage");
 
         if (!plant || !feeds) {
             return null;
@@ -101,6 +99,7 @@ const getFeedsByPlantId = async (
                 const tmpComments = await Promise.all(
                     feed.comments.map(async (comment: any) => {
                         const result = {
+                            userName: comment.userId.userName,
                             profileImage: comment.userId.profileImage,
                             comment: comment.comment,
                         };

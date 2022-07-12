@@ -19,6 +19,7 @@ interface Data {
 }
 
 interface Comment {
+    userName: string;
     profileImage: string;
     comment: string;
 }
