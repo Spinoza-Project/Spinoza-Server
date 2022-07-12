@@ -235,6 +235,7 @@ const getFarmerReservationByFarmId = async (
                 } else {
                     result = {
                         _id: reservation._id,
+                        color: fruitType!.color,
                         reserved: reservation.reserved,
                     };
                 }

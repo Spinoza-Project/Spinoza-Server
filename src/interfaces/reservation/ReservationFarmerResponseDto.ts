@@ -10,7 +10,7 @@ interface Data {
     plantId?: mongoose.Types.ObjectId;
     userName?: string;
     hasNotification?: boolean;
-    color?: string;
+    color: string;
     reserved: boolean;
 }
 
