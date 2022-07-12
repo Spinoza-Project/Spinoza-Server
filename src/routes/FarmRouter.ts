@@ -13,5 +13,10 @@ router.get(
     FarmController.getReservationByFarmId
 );
 router.get("/farmer/farm", auth, FarmController.getFarmsByFarmerId);
+router.get(
+    "/farmer/farm/:farmId/reservation",
+    auth,
+    FarmController.getFarmerReservationByFarmId
+);
 
 export default router;

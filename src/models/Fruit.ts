@@ -14,6 +14,10 @@ const FruitSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    color: {
+        type: String,
+        required: true,
+    },
 });
 
 export default mongoose.model<FruitInfo & mongoose.Document>(

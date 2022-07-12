@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 
-export interface ReservationResponseDto {
+export interface ReservationFarmerResponseDto {
     reservations: Data[];
     fruitTypes: FruitType[];
 }
 
 interface Data {
     _id: mongoose.Types.ObjectId;
-    fruitType: FruitType;
-    price: number;
+    plantId?: mongoose.Types.ObjectId;
+    userName?: string;
+    hasNotification?: boolean;
+    color?: string;
     reserved: boolean;
 }
 

@@ -2,13 +2,16 @@ import mongoose from "mongoose";
 import { FarmFarmerResponseDto } from "../interfaces/farm/FarmFarmerResponseDto";
 import { FarmResponseDto } from "../interfaces/farm/FarmResponseDto";
 import { FarmSpecificResponseDto } from "../interfaces/farm/FarmSpecificResponseDto";
+import { ReservationFarmerResponseDto } from "../interfaces/reservation/ReservationFarmerResponseDto";
 import { ReservationResponseDto } from "../interfaces/reservation/ReservationResponseDto";
 import { TourResponseDto } from "../interfaces/tour/TourResponseDto";
 import Farm from "../models/Farm";
 import Feed from "../models/Feed";
+import Fruit from "../models/Fruit";
 import Plant from "../models/Plant";
 import Reservation from "../models/Reservation";
 import Tour from "../models/Tour";
+import User from "../models/User";
 
 const getFarmsByFruitAndAddress = async (
     fruit: string,
@@ -114,8 +117,11 @@ const getReservationByFarmId = async (
             })
         );
 
+        const fruitTypes = await Fruit.find();
+
         const data = {
             reservations: tmp,
+            fruitTypes: fruitTypes,
         };
 
         return data;
@@ -196,10 +202,65 @@ const getFarmsByFarmerId = async (
     }
 };
 
+const getFarmerReservationByFarmId = async (
+    farmId: string
+): Promise<ReservationFarmerResponseDto | null> => {
+    try {
+        const reservations = await Reservation.find({
+            farmId: farmId,
+        })
+            .populate("fruitType", "name information image")
+            .populate("plantId", "userId farmId farmerId name image");
+
+        if (!reservations) {
+            return null;
+        }
+
+        const tmp = await Promise.all(
+            reservations.map(async (reservation: any) => {
+                const fruitType = await Fruit.findById(reservation.fruitType);
+                let result;
+                if (reservation.reserved) {
+                    const user = await User.findById(
+                        reservation.plantId.userId
+                    );
+                    result = {
+                        _id: reservation._id,
+                        plantId: reservation.plantId._id,
+                        userName: user!.userName,
+                        hasNotification: false,
+                        color: fruitType!.color,
+                        reserved: reservation.reserved,
+                    };
+                } else {
+                    result = {
+                        _id: reservation._id,
+                        reserved: reservation.reserved,
+                    };
+                }
+
+                return result;
+            })
+        );
+
+        const fruitTypes = await Fruit.find();
+
+        const data = {
+            reservations: tmp,
+            fruitTypes: fruitTypes,
+        };
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     getFarmsByFruitAndAddress,
     getFarmByFarmId,
     getReservationByFarmId,
     getTour,
     getFarmsByFarmerId,
+    getFarmerReservationByFarmId,
 };
