@@ -23,6 +23,19 @@ const FeedSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        comments: [
+            {
+                userId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    required: true,
+                    ref: "User",
+                },
+                comment: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
     },
     {
         timestamps: true,

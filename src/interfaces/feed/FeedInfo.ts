@@ -5,4 +5,10 @@ export interface FeedInfo {
     farmerId: mongoose.Types.ObjectId;
     images: string[];
     content: string;
+    comments: Comment[];
+}
+
+interface Comment {
+    userId: mongoose.Types.ObjectId;
+    comment: string;
 }

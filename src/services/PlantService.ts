@@ -78,9 +78,13 @@ const getFeedsByPlantId = async (
 ): Promise<FeedResponseDto | null> => {
     try {
         const plant = await Plant.findById(plantId);
-        const feeds = await Feed.find({ plantId: plantId }).sort({
-            createdAt: -1, // 최신순 정렬
-        });
+        const feeds = await Feed.find({ plantId: plantId })
+            .sort({
+                createdAt: -1, // 최신순 정렬
+            })
+            .populate("comments.userId", "profileImage");
+
+        console.log(feeds);
 
         if (!plant || !feeds) {
             return null;
@@ -94,10 +98,21 @@ const getFeedsByPlantId = async (
 
         const tmp = await Promise.all(
             feeds.map(async (feed: any) => {
+                const tmpComments = await Promise.all(
+                    feed.comments.map(async (comment: any) => {
+                        const result = {
+                            profileImage: comment.userId.profileImage,
+                            comment: comment.comment,
+                        };
+
+                        return result;
+                    })
+                );
                 const result = {
                     feedId: feed._id,
                     images: feed.images,
                     content: feed.content,
+                    comments: tmpComments,
                     createdAt: feed.createdAt,
                 };
 

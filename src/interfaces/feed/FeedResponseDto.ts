@@ -14,5 +14,11 @@ interface Data {
     feedId: mongoose.Types.ObjectId;
     images: string[];
     content: string;
+    comments: Comment[];
     createdAt: Date;
+}
+
+interface Comment {
+    profileImage: string;
+    comment: string;
 }
