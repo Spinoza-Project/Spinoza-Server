@@ -6,13 +6,20 @@ import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
 import Farm from "../models/Farm";
 import Feed from "../models/Feed";
 import Plant from "../models/Plant";
+import Reservation from "../models/Reservation";
 
 const createPlant = async (
     userId: string,
     plantCreateDto: PlantCreateDto
 ): Promise<PostBaseResponseDto | null> => {
     try {
-        const farmId = plantCreateDto.farmId;
+        const reservation = await Reservation.findById(
+            plantCreateDto.reservationId
+        );
+        if (!reservation) {
+            return null;
+        }
+        const farmId = reservation.farmId;
         const farm = await Farm.findById(farmId);
         if (!farm) {
             return null;
@@ -21,12 +28,19 @@ const createPlant = async (
         const plant = new Plant({
             userId: userId,
             farmId: farmId,
-            farmerId: farm?.farmerId,
+            farmerId: farm.farmerId,
             name: "닉네임",
             image: "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/createdApple.jpeg",
         });
 
         await plant.save();
+
+        await reservation.updateOne({
+            $set: {
+                reserved: true,
+                plantId: plant._id,
+            },
+        });
 
         const data = {
             _id: plant.id,

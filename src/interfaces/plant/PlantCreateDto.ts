@@ -1,3 +1,3 @@
 export interface PlantCreateDto {
-    farmId: string;
+    reservationId: string;
 }
