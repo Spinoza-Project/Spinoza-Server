@@ -1,13 +1,13 @@
 //router index file
 import { Router } from "express";
-import UserRouter from "./UserRouter";
-import PlantRouter from "./PlantRouter";
 import FarmRouter from "./FarmRouter";
+import PlantRouter from "./PlantRouter";
+import UserRouter from "./UserRouter";
 
 const router: Router = Router();
 
-router.use("/api/user", UserRouter);
-router.use("/api/plant", PlantRouter);
-router.use("/api/farm", FarmRouter);
+router.use("/api", UserRouter);
+router.use("/api", PlantRouter);
+router.use("/api", FarmRouter);
 
 export default router;

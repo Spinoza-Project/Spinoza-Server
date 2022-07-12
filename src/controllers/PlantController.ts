@@ -7,7 +7,7 @@ import util from "../modules/util";
 import { PlantService } from "../services";
 
 /**
- *  @route POST /plant
+ *  @route POST /user/plant
  *  @desc Create Plant
  *  @access Private
  */
@@ -45,7 +45,7 @@ const createPlant = async (req: Request, res: Response) => {
 };
 
 /**
- *  @route GET /plant
+ *  @route GET /user/plant
  *  @desc Read Plant
  *  @access Private
  */
@@ -75,7 +75,7 @@ const getPlants = async (req: Request, res: Response) => {
 };
 
 /**
- *  @route GET /plant/:plantId/feed
+ *  @route GET /user/plant/:plantId/feed
  *  @desc Read Plant's Feeds
  *  @access Private
  */

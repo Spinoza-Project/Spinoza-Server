@@ -22,6 +22,6 @@ router.post(
     ],
     UserController.signInUser
 );
-router.get("/", auth, UserController.getUser);
+router.get("/me", auth, UserController.getUser);
 
 export default router;

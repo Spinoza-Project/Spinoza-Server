@@ -4,8 +4,12 @@ import auth from "../middleware/auth";
 
 const router: Router = Router();
 
-router.post("/", auth, PlantController.createPlant);
-router.get("/", auth, PlantController.getPlants);
-router.get("/:plantId/feed", auth, PlantController.getFeedsByPlantId);
+router.post("/user/plant", auth, PlantController.createPlant);
+router.get("/user/plant", auth, PlantController.getPlants);
+router.get(
+    "/user/plant/:plantId/feed",
+    auth,
+    PlantController.getFeedsByPlantId
+);
 
 export default router;

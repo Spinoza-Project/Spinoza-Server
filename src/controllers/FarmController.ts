@@ -5,7 +5,7 @@ import util from "../modules/util";
 import { FarmService } from "../services";
 
 /**
- *  @route GET /farm?fruit=&address=
+ *  @route GET /user/farm?fruit=&address=
  *  @desc Read Farms by fruit and address
  *  @access Private
  */
@@ -38,7 +38,7 @@ const getFarmsByFruitAndAddress = async (req: Request, res: Response) => {
 };
 
 /**
- *  @route GET /farm/:farmId
+ *  @route GET /user/farm/:farmId
  *  @desc Read Farm by farmId
  *  @access Private
  */
@@ -69,7 +69,7 @@ const getFarmByFarmId = async (req: Request, res: Response) => {
 };
 
 /**
- *  @route GET /farm/:farmId/reservation
+ *  @route GET /user/farm/:farmId/reservation
  *  @desc Read Reservation by farmId
  *  @access Private
  */
@@ -100,7 +100,7 @@ const getReservationByFarmId = async (req: Request, res: Response) => {
 };
 
 /**
- *  @route GET /farm/tour
+ *  @route GET /user/farm/tour
  *  @desc Read Tour
  *  @access Private
  */

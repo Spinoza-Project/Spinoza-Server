@@ -10,7 +10,7 @@ import util from "../modules/util";
 import { UserService } from "../services";
 
 /**
- *  @route POST /user
+ *  @route POST /signup
  *  @desc Create User
  *  @access Public
  */
@@ -53,7 +53,7 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 /**
- * @route POST /user/signin
+ * @route POST /signin
  * @desc sign in User
  * @access Public
  */
@@ -107,7 +107,7 @@ const signInUser = async (req: Request, res: Response) => {
 };
 
 /**
- * @route GET /user
+ * @route GET /me
  * @desc Read User
  * @access Private
  */
