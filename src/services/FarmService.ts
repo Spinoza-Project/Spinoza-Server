@@ -1,8 +1,10 @@
 import { FarmResponseDto } from "../interfaces/farm/FarmResponseDto";
 import { FarmSpecificResponseDto } from "../interfaces/farm/FarmSpecificResponseDto";
 import { ReservationResponseDto } from "../interfaces/reservation/ReservationResponseDto";
+import { TourResponseDto } from "../interfaces/tour/TourResponseDto";
 import Farm from "../models/Farm";
 import Reservation from "../models/Reservation";
+import Tour from "../models/Tour";
 
 const getFarmsByFruitAndAddress = async (
     fruit: string,
@@ -113,8 +115,28 @@ const getReservationByFarmId = async (
     }
 };
 
+const getTour = async (): Promise<TourResponseDto | null> => {
+    try {
+        const tours = await Tour.find();
+
+        if (!tours) {
+            return null;
+        }
+
+        const data = {
+            tours: tours,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     getFarmsByFruitAndAddress,
     getFarmByFarmId,
     getReservationByFarmId,
+    getTour,
 };

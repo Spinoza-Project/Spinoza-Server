@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 import config from "../config";
 import Farm from "../models/Farm";
 import Farmer from "../models/Farmer";
-import Fruit from "../models/Fruit";
-import User from "../models/User";
-import Plant from "../models/Plant";
 import Feed from "../models/Feed";
+import Fruit from "../models/Fruit";
+import Plant from "../models/Plant";
 import Reservation from "../models/Reservation";
+import Tour from "../models/Tour";
+import User from "../models/User";
 
 const connectDB = async () => {
     try {
@@ -42,6 +43,10 @@ const connectDB = async () => {
 
         Reservation.createCollection().then(function (collection) {
             console.log("Reservation Collection is created!");
+        });
+
+        Tour.createCollection().then(function (collection) {
+            console.log("Tour Collection is created!");
         });
     } catch (err: any) {
         console.error(err.message);
