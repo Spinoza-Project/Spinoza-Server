@@ -1,9 +1,9 @@
+import bcrypt from "bcryptjs";
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { UserCreateDto } from "../interfaces/user/UserCreateDto";
-import { UserResponseDto } from "../interfaces/user/UserResponseDto";
-import User from "../models/User";
-import bcrypt from "bcryptjs";
 import { UserSignInDto } from "../interfaces/user/UserSignInDto";
+import Farmer from "../models/Farmer";
+import User from "../models/User";
 
 const createUser = async (
     userCreateDto: UserCreateDto
@@ -65,7 +65,23 @@ const signInUser = async (
     }
 };
 
+const getUser = async (userId: string): Promise<string | number> => {
+    try {
+        const user = await User.findById(userId);
+        if (user) return "USER";
+
+        const farmer = await Farmer.findById(userId);
+        if (farmer) return "FARMER";
+
+        return 401;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     createUser,
     signInUser,
+    getUser,
 };

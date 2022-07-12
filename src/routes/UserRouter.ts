@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { UserController } from "../controllers";
 import { body } from "express-validator/check";
+import { UserController } from "../controllers";
+import auth from "../middleware/auth";
 
 const router: Router = Router();
 
@@ -20,5 +21,6 @@ router.post(
     ],
     UserController.signInUser
 );
+router.get("/", auth, UserController.getUser);
 
 export default router;

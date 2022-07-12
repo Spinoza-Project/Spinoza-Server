@@ -1,13 +1,13 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
+import { validationResult } from "express-validator";
+import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { UserCreateDto } from "../interfaces/user/UserCreateDto";
-import statusCode from "../modules/statusCode";
+import { UserSignInDto } from "../interfaces/user/UserSignInDto";
+import getToken from "../modules/jwtHandler";
 import message from "../modules/responseMessage";
+import statusCode from "../modules/statusCode";
 import util from "../modules/util";
 import { UserService } from "../services";
-import { validationResult } from "express-validator";
-import getToken from "../modules/jwtHandler";
-import { UserSignInDto } from "../interfaces/user/UserSignInDto";
-import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 
 /**
  *  @route POST /user
@@ -106,7 +106,37 @@ const signInUser = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * @route GET /user
+ * @desc Read User
+ * @access Private
+ */
+const getUser = async (req: Request, res: Response) => {
+    try {
+        const userId: string = req.body.user.id;
+        const result = await UserService.getUser(userId);
+
+        if (result === 401)
+            return res
+                .status(statusCode.UNAUTHORIZED)
+                .send(util.fail(statusCode.UNAUTHORIZED, message.UNAUTHORIZED));
+
+        res.status(statusCode.OK).send(
+            util.success(statusCode.OK, message.READ_USER_SUCCESS, result)
+        );
+    } catch (e) {
+        console.log(e);
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(
+            util.fail(
+                statusCode.INTERNAL_SERVER_ERROR,
+                message.INTERNAL_SERVER_ERROR
+            )
+        );
+    }
+};
+
 export default {
     createUser,
     signInUser,
+    getUser,
 };
