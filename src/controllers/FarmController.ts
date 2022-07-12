@@ -128,9 +128,36 @@ const getTour = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ *  @route GET /farmer/farm
+ *  @desc Read Farms by farmerId
+ *  @access Private
+ */
+const getFarmsByFarmerId = async (req: Request, res: Response) => {
+    const farmerId = req.body.user.id;
+
+    try {
+        const data = await FarmService.getFarmsByFarmerId(farmerId);
+
+        res.status(statusCode.OK).send(
+            util.success(statusCode.OK, message.READ_FARM_SUCCESS, data)
+        );
+    } catch (error) {
+        console.log(error);
+        // 서버 내부에서 오류 발생
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(
+            util.fail(
+                statusCode.INTERNAL_SERVER_ERROR,
+                message.INTERNAL_SERVER_ERROR
+            )
+        );
+    }
+};
+
 export default {
     getFarmsByFruitAndAddress,
     getFarmByFarmId,
     getReservationByFarmId,
     getTour,
+    getFarmsByFarmerId,
 };
