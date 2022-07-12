@@ -5,6 +5,7 @@ export interface ReservationResponseDto {
 }
 
 interface Data {
+    _id: mongoose.Types.ObjectId;
     fruitType: FruitType;
     price: number;
     reserved: boolean;

@@ -12,6 +12,11 @@ const ReservationSchema = new mongoose.Schema({
         required: true,
         ref: "Farm",
     },
+    plantId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: "Plant",
+    },
     fruitType: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

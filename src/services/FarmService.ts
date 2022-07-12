@@ -99,6 +99,7 @@ const getReservationByFarmId = async (
         const tmp = await Promise.all(
             reservations.map(async (reservation: any) => {
                 const result = {
+                    _id: reservation._id,
                     fruitType: {
                         _id: reservation.fruitType._id,
                         name: reservation.fruitType.name,
