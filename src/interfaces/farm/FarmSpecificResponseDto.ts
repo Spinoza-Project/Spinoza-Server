@@ -6,7 +6,16 @@ export interface FarmSpecificResponseDto {
     farmName: string;
     address: string;
     phoneNumber: string;
+    grade: number;
+    tours: Tour[];
     fruitTypes: FruitInfo[] | mongoose.Types.ObjectId[];
+    hashTags: string[];
     introduction: string;
     images: string[];
+}
+
+interface Tour {
+    tourName: string;
+    tourImage: string;
+    distance: number;
 }

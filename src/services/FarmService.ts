@@ -58,12 +58,17 @@ const getFarmByFarmId = async (
             return null;
         }
 
+        const tours = await Tour.find();
+
         const data: FarmSpecificResponseDto = {
             farmId: farm._id,
             farmName: farm.farmName,
             address: farm.address,
             phoneNumber: farm.phoneNumber,
+            grade: farm.grade,
+            tours: tours,
             fruitTypes: farm.fruitTypes,
+            hashTags: farm.hashTags,
             introduction: farm.introduction,
             images: farm.images,
         };

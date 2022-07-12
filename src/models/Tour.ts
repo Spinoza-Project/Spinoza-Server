@@ -10,6 +10,10 @@ const TourSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    distance: {
+        type: Number,
+        required: true,
+    },
 });
 
 export default mongoose.model<TourInfo & mongoose.Document>("Tour", TourSchema);

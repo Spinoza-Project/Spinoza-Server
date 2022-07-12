@@ -29,11 +29,21 @@ const FarmSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    grade: {
+        type: Number,
+        required: false,
+    },
     fruitTypes: [
         {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "Fruit",
+        },
+    ],
+    hashTags: [
+        {
+            type: String,
+            required: false,
         },
     ],
     introduction: {

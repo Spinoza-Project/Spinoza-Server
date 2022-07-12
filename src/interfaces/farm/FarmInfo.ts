@@ -7,7 +7,9 @@ export interface FarmInfo {
     images: string[];
     address: string;
     phoneNumber: string;
+    grade: number;
     fruitTypes: mongoose.Types.ObjectId[];
+    hashTags: string[];
     introduction: string;
     gridX: number;
     gridY: number;
