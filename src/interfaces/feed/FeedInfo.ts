@@ -11,4 +11,5 @@ export interface FeedInfo {
 interface Comment {
     userId: mongoose.Types.ObjectId;
     comment: string;
+    isRead: boolean;
 }

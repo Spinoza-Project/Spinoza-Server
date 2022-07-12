@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
 import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
@@ -40,7 +41,10 @@ const createPlant = async (
 
 const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
     try {
-        const plants = await Plant.find({ userId: userId });
+        const plants = await Plant.find({ userId: userId }).populate(
+            "farmId",
+            "farmName address"
+        );
 
         if (!plants) {
             return null;
@@ -48,10 +52,28 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
 
         const tmp = await Promise.all(
             plants.map(async (plant: any) => {
+                let notifications = 0;
                 const farm = await Farm.findById(plant.farmId);
+                const feeds = await Feed.find({ plantId: plant._id });
+                for (const feed of feeds) {
+                    const comments = feed.comments;
+                    for (const comment of comments) {
+                        if (
+                            !comment.userId.equals(
+                                new mongoose.Types.ObjectId(userId)
+                            ) &&
+                            comment.isRead == false
+                        ) {
+                            notifications++;
+                        }
+                    }
+                }
 
                 const result = {
                     plantId: plant._id,
+                    farmName: plant.farmId.farmName,
+                    farmAddress: plant.farmId.address,
+                    notifications: notifications,
                     name: plant.name,
                     image: plant.image,
                     weather: farm?.weather,
