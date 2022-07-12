@@ -74,6 +74,7 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
 };
 
 const getFeedsByPlantId = async (
+    userId: string,
     plantId: string
 ): Promise<FeedResponseDto | null> => {
     try {
@@ -93,6 +94,19 @@ const getFeedsByPlantId = async (
         if (!farm) {
             return null;
         }
+
+        await Feed.updateMany(
+            {
+                plantId: plant._id,
+                "comments.isRead": false,
+            },
+            {
+                $set: {
+                    "comments.$[elem].isRead": true,
+                },
+            },
+            { arrayFilters: [{ "elem.userId": { $ne: userId } }] }
+        );
 
         const tmp = await Promise.all(
             feeds.map(async (feed: any) => {

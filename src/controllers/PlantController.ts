@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
-import statusCode from "../modules/statusCode";
-import message from "../modules/responseMessage";
-import util from "../modules/util";
-import { PlantService } from "../services";
+import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
+import message from "../modules/responseMessage";
+import statusCode from "../modules/statusCode";
+import util from "../modules/util";
+import { PlantService } from "../services";
 
 /**
  *  @route POST /plant
@@ -80,10 +80,11 @@ const getPlants = async (req: Request, res: Response) => {
  *  @access Private
  */
 const getFeedsByPlantId = async (req: Request, res: Response) => {
+    const userId = req.body.user.id;
     const { plantId } = req.params;
 
     try {
-        const data = await PlantService.getFeedsByPlantId(plantId);
+        const data = await PlantService.getFeedsByPlantId(userId, plantId);
         if (!data)
             return res
                 .status(statusCode.NOT_FOUND)
