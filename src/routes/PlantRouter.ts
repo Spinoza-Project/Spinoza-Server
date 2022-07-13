@@ -16,5 +16,10 @@ router.get(
     auth,
     PlantController.getFarmerFeedsByPlantId
 );
+router.post(
+    "/farmer/feed/:feedId/comment",
+    auth,
+    PlantController.createFarmerComment
+);
 
 export default router;

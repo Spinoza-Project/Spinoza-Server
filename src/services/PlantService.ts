@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
+import { FeedCreateFarmerCommentDto } from "../interfaces/feed/FeedCreateFarmerCommentDto";
 import { FeedFarmerResponseDto } from "../interfaces/feed/FeedFarmerResponseDto";
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
 import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
@@ -274,9 +275,41 @@ const getFarmerFeedsByPlantId = async (
     }
 };
 
+const createFarmerComment = async (
+    userId: string,
+    feedId: string,
+    feedCreateFarmerCommentDto: FeedCreateFarmerCommentDto
+): Promise<PostBaseResponseDto | null> => {
+    try {
+        const feed = await Feed.findById(feedId);
+
+        if (!feed) return null;
+
+        const comment = {
+            userId: new mongoose.Types.ObjectId(userId),
+            comment: feedCreateFarmerCommentDto.comment,
+            isRead: false,
+        };
+
+        await feed.updateOne({
+            $push: { comments: comment },
+        });
+
+        const data = {
+            _id: feed._id,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     getPlants,
     createPlant,
     getFeedsByPlantId,
     getFarmerFeedsByPlantId,
+    createFarmerComment,
 };
