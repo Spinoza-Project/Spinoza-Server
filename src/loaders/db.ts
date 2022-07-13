@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import config from "../config";
 import Farm from "../models/Farm";
 import Feed from "../models/Feed";
+import File from "../models/File";
 import Fruit from "../models/Fruit";
 import Plant from "../models/Plant";
 import Reservation from "../models/Reservation";
@@ -42,6 +43,10 @@ const connectDB = async () => {
 
         Tour.createCollection().then(function (collection) {
             console.log("Tour Collection is created!");
+        });
+
+        File.createCollection().then(function (collection) {
+            console.log("File Collection is created!");
         });
     } catch (err: any) {
         console.error(err.message);

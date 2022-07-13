@@ -7,6 +7,7 @@ import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
 import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
 import Farm from "../models/Farm";
 import Feed from "../models/Feed";
+import File from "../models/File";
 import Plant from "../models/Plant";
 import Reservation from "../models/Reservation";
 
@@ -252,10 +253,6 @@ const getFarmerFeedsByPlantId = async (
             })
         );
 
-        if (plantImage == "")
-            plantImage =
-                "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/createdApple.jpeg";
-
         const data = {
             userName: (plant.userId as any).userName,
             plantName: plant.name,
@@ -266,6 +263,47 @@ const getFarmerFeedsByPlantId = async (
             weather: (plant.farmId as any).weather,
             humidity: (plant.farmId as any).humidity,
             feeds: tmp,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+const createFarmerFeed = async (
+    userId: string,
+    plantId: string,
+    content: string,
+    imageList: { location: string; originalName: string }[]
+): Promise<PostBaseResponseDto | null> => {
+    try {
+        const images: string[] = await Promise.all(
+            imageList.map(async (image) => {
+                const file = new File({
+                    link: image.location,
+                    fileName: image.originalName,
+                });
+
+                await file.save();
+
+                return file.link;
+            })
+        );
+
+        const feed = new Feed({
+            plantId: plantId,
+            farmerId: userId,
+            images: images,
+            content: content,
+            comments: [],
+        });
+
+        await feed.save();
+
+        const data = {
+            _id: feed._id,
         };
 
         return data;
@@ -311,5 +349,6 @@ export default {
     createPlant,
     getFeedsByPlantId,
     getFarmerFeedsByPlantId,
+    createFarmerFeed,
     createFarmerComment,
 };

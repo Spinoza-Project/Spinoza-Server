@@ -1,4 +1,5 @@
 import { Router } from "express";
+import upload from "../config/multer";
 import { PlantController } from "../controllers";
 import auth from "../middleware/auth";
 
@@ -20,6 +21,12 @@ router.post(
     "/farmer/feed/:feedId/comment",
     auth,
     PlantController.createFarmerComment
+);
+router.post(
+    "/farmer/plant/:plantId/feed",
+    auth,
+    upload.array("file"),
+    PlantController.createFarmerFeed
 );
 
 export default router;

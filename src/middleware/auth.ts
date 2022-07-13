@@ -1,8 +1,8 @@
-import express, { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import config from "../config";
-import statusCode from "../modules/statusCode";
 import message from "../modules/responseMessage";
+import statusCode from "../modules/statusCode";
 import util from "../modules/util";
 
 export default (req: Request, res: Response, next: NextFunction) => {

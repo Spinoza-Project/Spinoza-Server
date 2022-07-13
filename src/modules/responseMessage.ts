@@ -27,6 +27,7 @@ const message = {
 
     READ_TOUR_SUCCESS: "관광지 정보 조회 성공",
 
+    CREATE_FARMER_FEED_SUCCESS: "농가 피드 작성 성공",
     CREATE_FARMER_COMMENT_SUCCESS: "농가 댓글 작성 성공",
 };
 
