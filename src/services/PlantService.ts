@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { PostBaseResponseDto } from "../interfaces/common/PostBaseResponseDto";
+import { FeedFarmerResponseDto } from "../interfaces/feed/FeedFarmerResponseDto";
 import { FeedResponseDto } from "../interfaces/feed/FeedResponseDto";
 import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
 import { PlantResponseDto } from "../interfaces/plant/PlantResponseDto";
@@ -186,8 +187,96 @@ const getFeedsByPlantId = async (
     }
 };
 
+const getFarmerFeedsByPlantId = async (
+    userId: string,
+    plantId: string
+): Promise<FeedFarmerResponseDto | null> => {
+    try {
+        const plant = await Plant.findById(plantId)
+            .populate("userId", "userName")
+            .populate(
+                "farmId",
+                "farmName address temperature weather humidity"
+            );
+
+        const feeds = await Feed.find({ plantId: plantId })
+            .sort({
+                createdAt: -1, // 최신순 정렬
+            })
+            .populate("comments.userId", "userName profileImage");
+
+        if (!plant || !feeds) {
+            return null;
+        }
+
+        await Feed.updateMany(
+            {
+                plantId: plant._id,
+                "comments.isRead": false,
+            },
+            {
+                $set: {
+                    "comments.$[elem].isRead": true,
+                },
+            },
+            { arrayFilters: [{ "elem.userId": { $ne: userId } }] }
+        );
+
+        let plantImage = "";
+
+        const tmp = await Promise.all(
+            feeds.map(async (feed: any) => {
+                const tmpComments = await Promise.all(
+                    feed.comments.map(async (comment: any) => {
+                        const result = {
+                            userName: comment.userId.userName,
+                            profileImage: comment.userId.profileImage,
+                            comment: comment.comment,
+                        };
+
+                        return result;
+                    })
+                );
+                if (plantImage == "") plantImage = feed.images[0];
+
+                const result = {
+                    feedId: feed._id,
+                    images: feed.images,
+                    content: feed.content,
+                    comments: tmpComments,
+                    createdAt: feed.createdAt,
+                };
+
+                return result;
+            })
+        );
+
+        if (plantImage == "")
+            plantImage =
+                "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/createdApple.jpeg";
+
+        const data = {
+            userName: (plant.userId as any).userName,
+            plantName: plant.name,
+            plantImage: plantImage,
+            farmName: (plant.farmId as any).farmName,
+            farmAddress: (plant.farmId as any).address,
+            temperature: (plant.farmId as any).temperature,
+            weather: (plant.farmId as any).weather,
+            humidity: (plant.farmId as any).humidity,
+            feeds: tmp,
+        };
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export default {
     getPlants,
     createPlant,
     getFeedsByPlantId,
+    getFarmerFeedsByPlantId,
 };

@@ -11,5 +11,10 @@ router.get(
     auth,
     PlantController.getFeedsByPlantId
 );
+router.get(
+    "/farmer/plant/:plantId/feed",
+    auth,
+    PlantController.getFarmerFeedsByPlantId
+);
 
 export default router;
