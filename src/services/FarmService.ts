@@ -178,6 +178,7 @@ const getFarmsByFarmerId = async (
                 }
 
                 const result = {
+                    farmId: farm._id,
                     farmName: farm.farmName,
                     farmAddress: farm.address,
                     farmImage: farm.images[0],
