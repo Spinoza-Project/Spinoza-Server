@@ -147,6 +147,8 @@ const getFeedsByPlantId = async (
             { arrayFilters: [{ "elem.userId": { $ne: userId } }] }
         );
 
+        let plantImage = "";
+
         const tmp = await Promise.all(
             feeds.map(async (feed: any) => {
                 const tmpComments = await Promise.all(
@@ -160,6 +162,8 @@ const getFeedsByPlantId = async (
                         return result;
                     })
                 );
+                if (plantImage == "") plantImage = feed.images[0];
+
                 const result = {
                     feedId: feed._id,
                     images: feed.images,
@@ -174,6 +178,7 @@ const getFeedsByPlantId = async (
 
         const data = {
             plantName: plant.name,
+            plantImage: plantImage,
             farmName: farm.farmName,
             farmAdress: farm.address,
             weather: farm.weather,
