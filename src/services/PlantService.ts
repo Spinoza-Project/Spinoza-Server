@@ -72,7 +72,9 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
             plants.map(async (plant: any) => {
                 let notifications = 0;
                 const farm = await Farm.findById(plant.farmId);
-                const feeds = await Feed.find({ plantId: plant._id });
+                const feeds = await Feed.find({ plantId: plant._id }).sort({
+                    createdAt: -1, // 최신순 정렬
+                });
                 let image = "default";
                 for (const feed of feeds) {
                     const comments = feed.comments;
