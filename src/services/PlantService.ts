@@ -73,6 +73,7 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
                 let notifications = 0;
                 const farm = await Farm.findById(plant.farmId);
                 const feeds = await Feed.find({ plantId: plant._id });
+                let image = "default";
                 for (const feed of feeds) {
                     const comments = feed.comments;
                     for (const comment of comments) {
@@ -85,6 +86,7 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
                             notifications++;
                         }
                     }
+                    if (image == "default") image = feed.images[0];
                 }
 
                 const result = {
@@ -93,7 +95,7 @@ const getPlants = async (userId: string): Promise<PlantResponseDto | null> => {
                     farmAddress: plant.farmId.address,
                     notifications: notifications,
                     name: plant.name,
-                    image: plant.image,
+                    image: image,
                     weather: farm?.weather,
                     temperature: farm?.temperature,
                 };
