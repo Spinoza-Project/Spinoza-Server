@@ -33,8 +33,8 @@ const createPlant = async (
             userId: userId,
             farmId: farmId,
             farmerId: farm.farmerId,
-            name: "닉네임",
-            image: "https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/createdApple.jpeg",
+            name: plantCreateDto.nickname,
+            image: "default",
         });
 
         await plant.save();
@@ -148,7 +148,7 @@ const getFeedsByPlantId = async (
             { arrayFilters: [{ "elem.userId": { $ne: userId } }] }
         );
 
-        let plantImage = "";
+        let plantImage = "default";
 
         const tmp = await Promise.all(
             feeds.map(async (feed: any) => {
@@ -163,7 +163,7 @@ const getFeedsByPlantId = async (
                         return result;
                     })
                 );
-                if (plantImage == "") plantImage = feed.images[0];
+                if (plantImage == "default") plantImage = feed.images[0];
 
                 const result = {
                     feedId: feed._id,
@@ -262,7 +262,7 @@ const getFarmerFeedsByPlantId = async (
             { arrayFilters: [{ "elem.userId": { $ne: userId } }] }
         );
 
-        let plantImage = "";
+        let plantImage = "default";
 
         const tmp = await Promise.all(
             feeds.map(async (feed: any) => {
@@ -277,7 +277,7 @@ const getFarmerFeedsByPlantId = async (
                         return result;
                     })
                 );
-                if (plantImage == "") plantImage = feed.images[0];
+                if (plantImage == "default") plantImage = feed.images[0];
 
                 const result = {
                     feedId: feed._id,
