@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { FeedCreateFarmerCommentDto } from "../interfaces/feed/FeedCreateFarmerCommentDto";
+import { FeedCreateUserCommentDto } from "../interfaces/feed/FeedCreateUserCommentDto";
 import { PlantCreateDto } from "../interfaces/plant/PlantCreateDto";
 import message from "../modules/responseMessage";
 import statusCode from "../modules/statusCode";
@@ -93,6 +94,54 @@ const getFeedsByPlantId = async (req: Request, res: Response) => {
 
         res.status(statusCode.OK).send(
             util.success(statusCode.OK, message.READ_FEED_SUCCESS, data)
+        );
+    } catch (error) {
+        console.log(error);
+        // 서버 내부에서 오류 발생
+        res.status(statusCode.INTERNAL_SERVER_ERROR).send(
+            util.fail(
+                statusCode.INTERNAL_SERVER_ERROR,
+                message.INTERNAL_SERVER_ERROR
+            )
+        );
+    }
+};
+
+/**
+ *  @route POST /user/plant/:plantId/feed/:feedId/comment
+ *  @desc Create user comment
+ *  @access Private
+ */
+const createUserComment = async (req: Request, res: Response) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res
+            .status(statusCode.BAD_REQUEST)
+            .send(util.fail(statusCode.BAD_REQUEST, message.BAD_REQUEST));
+    }
+    const userId = req.body.user.id;
+    const { plantId, feedId } = req.params;
+
+    const feedCreateUserCommentDto: FeedCreateUserCommentDto = req.body;
+
+    try {
+        const data = await PlantService.createUserComment(
+            userId,
+            plantId,
+            feedId,
+            feedCreateUserCommentDto
+        );
+        if (!data)
+            return res
+                .status(statusCode.NOT_FOUND)
+                .send(util.fail(statusCode.NOT_FOUND, message.NOT_FOUND));
+
+        res.status(statusCode.CREATED).send(
+            util.success(
+                statusCode.CREATED,
+                message.CREATE_USER_COMMENT_SUCCESS,
+                data
+            )
         );
     } catch (error) {
         console.log(error);
@@ -257,6 +306,7 @@ export default {
     getPlants,
     createPlant,
     getFeedsByPlantId,
+    createUserComment,
     getFarmerFeedsByPlantId,
     createFarmerFeed,
     createFarmerComment,

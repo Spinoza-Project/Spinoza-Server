@@ -12,6 +12,11 @@ router.get(
     auth,
     PlantController.getFeedsByPlantId
 );
+router.post(
+    "/user/plant/:plantId/feed/:feedId/comment",
+    auth,
+    PlantController.createUserComment
+);
 router.get(
     "/farmer/plant/:plantId/feed",
     auth,

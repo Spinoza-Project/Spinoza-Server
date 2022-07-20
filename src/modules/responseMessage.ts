@@ -16,6 +16,7 @@ const message = {
     DELETE_USER_SUCCESS: "유저 삭제 성공",
     UPDATE_USER_SUCCESS: "유저 수정 성공",
     SIGNIN_USER_SUCCESS: "유저 로그인 성공",
+    CREATE_USER_COMMENT_SUCCESS: "유저 댓글 작성 성공",
 
     READ_PLANT_SUCCESS: "식물 조회 성공",
     CREATE_PLANT_SUCCESS: "식물 생성 성공",
