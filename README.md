@@ -1,3 +1,42 @@
-# node-typescript-init
+# Planti
 
-Node.js, Typescript, MongoDB (mongoose) Initial Boiler Plate
+## 🔥 한줄 소개
+
+- 내 손안의 작은 과수원
+
+
+## 🗓 진행 기간
+
+-   2022.05.23 ~ 2022.08.05
+
+## ⚙️ 담당 Skills & 사용 라이브러리
+
+- Node.js
+- TypeScript
+- MongoDB
+- Express, Mongoose
+- AWS EC2, S3
+- PM2
+
+## 👥 팀 구성
+
+-   기획자 2명
+-   프론트엔드 개발자 1명
+-   백엔드 개발자 1명
+-   데이터 엔지니어 4명
+
+## 📖 상세 내용
+
+<img width="1072" alt="KakaoTalk_Photo_2022-07-25-12-12-22" src="https://user-images.githubusercontent.com/74812188/180691961-e0834373-52a7-4877-ae4d-dc765d8e87d8.png">
+
+-   **제2회 경상북도 공공데이터 활용 창업경진대회**에서 진행한 프로젝트입니다. 과수 유통, 생산 사업 전국 1위, 전국 17개 시도 중 농가 수 1위라는 경상북도의 지역적 특색에 맞는 **과일별 최적지역 추천을 통해 경상북도 과일 농가에 자신의 과수를 심는/분양받는 C2C 중개 서비스 Planti** 입니다.
+
+
+## 📱 담당한 기능 (Server, Database)
+
+![스크린샷 2022-07-25 오전 11 46 08](https://user-images.githubusercontent.com/74812188/180692155-c139c5cd-d242-4349-a9ce-c93852d1e334.png)
+
+## 💡 깨달은 점
+
+- 처음으로 **데이터 직군** 팀원들과 협업을 해봤다.
+- 데이터 직군 팀원들의 역할을 알 수 있었다.
